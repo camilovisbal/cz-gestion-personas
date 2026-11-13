@@ -25,7 +25,7 @@ El selector de la barra superior cambia entre tres vistas:
 
 | Rol | Persona de ejemplo | Qué ve |
 |---|---|---|
-| Gestión Humana | Laura Peñaranda | Todos los módulos |
+| Gestión Humana | Carolina Mejía Ríos | Todos los módulos |
 | Líder de obra | Ing. Mónica Barrios (Edificio Altos del Prado, en cierre) | Su cuadrilla, charlas, nominaciones, desempeño, bienestar y solicitudes de personal |
 | Trabajador | José Ariza (soldador, Bodega Malambo) | Portal móvil: Pulso CZ, Canal CZ, formación, reconocimientos y reporte de bienestar |
 

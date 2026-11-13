@@ -90,8 +90,9 @@ export default function Personal() {
             <Kpi etiqueta="Con potencial de crecimiento" valor={recientes.filter((d) => d.potencial).length} icono={Sparkles} pie="Pueden asumir nuevas responsabilidades" />
             <Kpi etiqueta="Pendientes de conversación" valor={pendientes.length} icono={Users} tono="ocre" pie="Más de 60 días en CZ y sin conversación" />
           </div>
-          <div className="grid g-21">
+          <div className="stack">
             <Card titulo="Conversaciones recientes" sub="Retroalimentación con metas claras · alimentan la ruta de formación" flush>
+              <div className="tabla-wrap">
               <table className="tabla">
                 <thead><tr><th>Trabajador</th><th>Fecha</th><th>Valoración</th><th>Fortaleza</th><th>Por aprender</th></tr></thead>
                 <tbody>
@@ -109,16 +110,17 @@ export default function Personal() {
                   })}
                 </tbody>
               </table>
+              </div>
               {recientes.length === 0 && <Vacio titulo="Aún no hay conversaciones este trimestre" />}
             </Card>
-            <Card titulo="Pendientes" sub="Programar con su líder" flush>
-              <ul className="lista" style={{ maxHeight: 520, overflowY: 'auto' }}>
+            <Card titulo="Pendientes de conversación" sub={`${pendientes.length} trabajadores con más de 60 días en CZ · programar con su líder`}>
+              <div className="grid g-3" style={{ gap: 6 }}>
                 {pendientes.map((p) => (
-                  <li key={p.id} className="click" onClick={() => verPersona(p.id)}>
+                  <button key={p.id} className="pendiente-item" onClick={() => verPersona(p.id)}>
                     <Persona persona={p} size="sm" detalle={`${cargoPorId[p.cargo].nombre} · ${obraPorId[p.obraId].nombre}`} />
-                  </li>
+                  </button>
                 ))}
-              </ul>
+              </div>
             </Card>
           </div>
         </>

@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { MessageCircle, Plus, Users, Gauge, HeartHandshake, Clock, CheckCircle2, Megaphone, CalendarCheck, Printer, Lock, EyeOff } from 'lucide-react'
 import { useStore } from '../store/Store.jsx'
-import { PageHead, Card, Badge, Kpi, Tabs, Modal, Campo, Segmentado, Vacio, Progreso } from '../components/ui.jsx'
+import { PageHead, Card, Badge, Kpi, Tabs, Modal, Campo, Segmentado, Vacio, Progreso, Isotipo } from '../components/ui.jsx'
 import { Bala, LeyendaBala, Lineas } from '../components/charts.jsx'
 import { CharlaForm, SugerenciaForm } from '../components/Formularios.jsx'
 import Qr from '../components/Qr.jsx'
@@ -40,6 +41,28 @@ export default function Escucha() {
   )
 }
 
+// Imprime solo el afiche con el QR: el resto de la página se oculta mientras dura la impresión.
+function imprimirAfiche() {
+  const quitar = () => { document.body.classList.remove('imprimiendo-afiche'); window.removeEventListener('afterprint', quitar) }
+  document.body.classList.add('imprimiendo-afiche')
+  window.addEventListener('afterprint', quitar)
+  window.print()
+  setTimeout(quitar, 1000)
+}
+
+function Afiche({ pulso }) {
+  return createPortal(
+    <div className="afiche">
+      <div className="afiche-marca"><Isotipo />CZ Construcciones</div>
+      <h1>¿Cómo te sientes en CZ?</h1>
+      <p>Escanea el código y responde el Pulso CZ. Son 2 minutos y es anónimo.</p>
+      <Qr semilla={pulso.id} size={420} />
+      <div className="afiche-pie">{pulso.nombre} · disponible hasta el {fecha(pulso.cierre)} · también puedes pedir la encuesta en papel a tu líder</div>
+    </div>,
+    document.body,
+  )
+}
+
 function Pulso({ obraLider }) {
   const { db, activos } = useStore()
   const abierto = db.pulsos.find((p) => p.estado === 'abierto')
@@ -53,6 +76,7 @@ function Pulso({ obraLider }) {
 
   return (
     <>
+      <Afiche pulso={abierto} />
       <div className="grid g-4">
         <Kpi etiqueta="Participación" valor={actual.n} unidad={` / ${universo}`} icono={Users} pie={<div style={{ width: '100%' }}><Progreso valor={actual.n / universo} /><div style={{ marginTop: 6 }}>Cierra {relativo(abierto.cierre)} · meta ≥ 70 %</div></div>} />
         <Kpi etiqueta="Índice de clima" valor={num(actual.indice)} unidad=" / 5" icono={Gauge} pie={<><span className={`delta ${actual.indice >= base.indice ? 'up' : 'down'}`}>{deltaDec(actual.indice - base.indice)}</span> vs. línea base {num(base.indice)} · meta ≥ 4,0</>} />
@@ -77,7 +101,7 @@ function Pulso({ obraLider }) {
                 <span className="sec">Se publica en la entrada de cada obra y en la charla semanal.</span>
                 <span className="fila" style={{ gap: 6 }}><EyeOff size={14} color="var(--verde)" />No se muestra quién responde</span>
                 <span className="fila" style={{ gap: 6 }}><Lock size={14} color="var(--verde)" />Resultados por obra desde 5 respuestas</span>
-                <button className="btn sm" style={{ alignSelf: 'flex-start' }} onClick={() => window.print()}><Printer />Imprimir afiche</button>
+                <button className="btn sm" style={{ alignSelf: 'flex-start' }} onClick={imprimirAfiche}><Printer />Imprimir afiche</button>
               </div>
             </div>
           </Card>

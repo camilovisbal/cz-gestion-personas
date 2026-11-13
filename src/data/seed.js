@@ -12,6 +12,9 @@ function mulberry32(a) {
   }
 }
 
+// Usuaria de ejemplo con el rol de Gestión Humana.
+export const USUARIO_ADMIN = { nombre: 'Carolina Mejía Ríos', cargo: 'Coordinadora de Gestión Humana' }
+
 export function crearDatosDemo() {
   const rnd = mulberry32(20261112)
   const int = (a, b) => Math.floor(rnd() * (b - a + 1)) + a
@@ -434,7 +437,7 @@ export function crearDatosDemo() {
     historicoPersonal,
     radarActual: 3.1,
     usuarios: {
-      admin: { nombre: 'Laura Peñaranda', cargo: 'Coordinadora de Gestión Humana' },
+      admin: USUARIO_ADMIN,
       lider: { personaId: lider.o2, obraId: 'o2' },
       trabajador: { personaId: jose.id },
     },

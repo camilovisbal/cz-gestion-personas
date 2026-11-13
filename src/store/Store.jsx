@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
-import { crearDatosDemo } from '../data/seed.js'
+import { crearDatosDemo, USUARIO_ADMIN } from '../data/seed.js'
 import { cargoPorId } from '../data/catalogos.js'
 import { enDias } from '../lib/fechas.js'
 
@@ -237,7 +237,7 @@ export function StoreProvider({ children }) {
     const personaPorId = Object.fromEntries(db.personas.map((p) => [p.id, p]))
     const obraPorId = Object.fromEntries(db.obras.map((o) => [o.id, o]))
     const usuario = rol === 'admin'
-      ? { ...db.usuarios.admin, iniciales: 'LP' }
+      ? { ...USUARIO_ADMIN }
       : rol === 'lider'
         ? { persona: personaPorId[db.usuarios.lider.personaId], obraId: db.usuarios.lider.obraId }
         : { persona: personaPorId[db.usuarios.trabajador.personaId] }

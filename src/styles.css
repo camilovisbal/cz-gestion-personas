@@ -295,6 +295,27 @@ table.tabla { width: 100%; border-collapse: collapse; }
 .toast { background: var(--tinta); color: #fff; border-radius: 9px; padding: 10px 14px; display: flex; align-items: center; gap: 9px; box-shadow: var(--sombra-lg); font-size: 13px; animation: subir .2s ease; max-width: 380px; }
 .toast svg { width: 16px; height: 16px; color: #8fdcb0; flex: none; }
 
+.pendiente-item { display: block; width: 100%; text-align: left; border: 1px solid var(--borde-suave); background: #fff; border-radius: 8px; padding: 8px 10px; cursor: pointer; }
+.pendiente-item:hover { background: var(--verde-50); border-color: var(--verde-300); }
+
+/* ───────── Afiche del Pulso (solo se ve al imprimir) ───────── */
+.afiche { display: none; }
+@media print {
+  @page { size: letter portrait; margin: 18mm; }
+  body.imprimiendo-afiche { background: #fff; }
+  body.imprimiendo-afiche #root { display: none !important; }
+  body.imprimiendo-afiche .afiche {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+    gap: 18px; min-height: 230mm; color: var(--tinta); -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .afiche .afiche-marca { display: flex; align-items: center; gap: 12px; font-size: 22px; font-weight: 700; color: var(--verde); }
+  .afiche .afiche-marca svg { width: 36px; height: 45px; }
+  .afiche h1 { font-size: 40px; letter-spacing: -0.02em; margin: 6px 0 0; }
+  .afiche p { font-size: 18px; color: var(--tinta-2); max-width: 140mm; }
+  .afiche .qr { width: 120mm; height: 120mm; }
+  .afiche .afiche-pie { font-size: 14px; color: var(--tinta-3); }
+}
+
 /* ───────── Vacío ───────── */
 .vacio { text-align: center; padding: 36px 20px; color: var(--tinta-3); }
 .vacio svg { width: 28px; height: 28px; color: var(--verde-300); margin-bottom: 8px; }
