@@ -2,6 +2,8 @@
   "name": "cz-gestion-personas",
   "private": true,
   "version": "0.1.0",
+  "description": "Prototipo de gestión de personas para CZ Construcciones",
+  "homepage": "https://camilovisbal.github.io/cz-gestion-personas/",
   "type": "module",
   "scripts": {
     "dev": "vite",
