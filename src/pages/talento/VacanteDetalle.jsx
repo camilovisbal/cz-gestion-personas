@@ -105,7 +105,7 @@ export default function VacanteDetalle({ id }) {
                       <button className="btn sm fantasma icono" onClick={() => setAbierto(exp ? null : p.id)} aria-label="Ver detalle">{exp ? <ChevronDown /> : <ChevronRight />}</button>
                     </div>
                     {exp && (
-                      <div className="grid g-2" style={{ padding: '4px 18px 18px 84px', gap: 24 }}>
+                      <div className="grid g-2 detalle-expandido" style={{ padding: '4px 18px 18px 84px', gap: 24 }}>
                         <div>
                           <div className="seccion-t" style={{ marginTop: 4 }}>Por qué este puntaje</div>
                           <div className="desglose">

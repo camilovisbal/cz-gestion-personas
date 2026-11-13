@@ -67,7 +67,7 @@ export function Columnas({ datos, alto = 220, formato = (v) => v, etiquetaX, des
             <g key={i} onMouseEnter={() => setHover(i)}>
               <rect x={x(i) - iw / datos.length / 2} y={pad.t} width={iw / datos.length} height={ih} fill="transparent" />
               <path d={path} fill={d.proyectado ? 'url(#trama)' : activo ? 'var(--verde-700)' : 'var(--verde)'} opacity={hover !== null && hover !== i ? 0.55 : 1} />
-              <text x={x(i)} y={alto - 8} textAnchor="middle" style={activo ? { fill: 'var(--tinta)', fontWeight: 600 } : undefined}>{etiquetaX(d)}</text>
+              <text x={x(i)} y={alto - 8} textAnchor="middle" style={activo ? { fill: 'var(--tinta)', fontWeight: 600 } : undefined}>{iw / datos.length < 46 ? String(etiquetaX(d)).split(' ')[0] : etiquetaX(d)}</text>
             </g>
           )
         })}

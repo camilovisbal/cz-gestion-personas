@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import {
   LayoutDashboard, Briefcase, KanbanSquare, Users, UserPlus, HardHat, Building2, MessageCircle,
-  Award, GraduationCap, HeartPulse, Target, Search, ShieldCheck, Wrench, RotateCcw, Smartphone, ClipboardList,
+  Award, GraduationCap, HeartPulse, Target, Search, ShieldCheck, Wrench, RotateCcw, Smartphone, ClipboardList, Menu,
 } from 'lucide-react'
 import { useStore } from './store/Store.jsx'
 import { UiCtx, useUi } from './store/ui.js'
@@ -140,7 +140,10 @@ export default function App() {
   const { db, rol, setRol, acciones, toasts, usuario, obraPorId } = useStore()
   const { partes, raw } = useRuta()
   const [perfil, setPerfil] = useState(null)
+  const [menuAbierto, setMenuAbierto] = useState(false)
   const ui = useMemo(() => ({ verPersona: setPerfil }), [])
+  // En celular el menú lateral se cierra al cambiar de página.
+  useEffect(() => { setMenuAbierto(false) }, [raw, rol])
 
   const ruta = partes.join('/')
   // Si la ruta no corresponde al rol, se envía al inicio del rol (y no se pinta nada mientras tanto).
@@ -183,7 +186,8 @@ export default function App() {
   return (
     <UiCtx.Provider value={ui}>
       <div className="app">
-        <aside className="sidebar">
+        {menuAbierto && <div className="sidebar-fondo" onClick={() => setMenuAbierto(false)} />}
+        <aside className={`sidebar ${menuAbierto ? 'abierto' : ''}`}>
           <div className="brand">
             <Isotipo />
             <div className="brand-txt">
@@ -216,12 +220,14 @@ export default function App() {
 
         <div className="principal">
           <header className="topbar">
-            {rol !== 'trabajador' ? <Buscador /> : <div className="sec peq">Vista móvil del trabajador · se abre desde el QR de la obra</div>}
+            <button className="btn fantasma icono btn-menu" onClick={() => setMenuAbierto(true)} aria-label="Abrir menú"><Menu /></button>
+            <span className="marca-movil"><Isotipo /></span>
+            {rol !== 'trabajador' ? <Buscador /> : <div className="sec peq solo-escritorio">Vista móvil del trabajador · se abre desde el QR de la obra</div>}
             <div className="topbar-der">
               <div className="rol-switch" title="Cambiar la vista del prototipo">
                 {ROLES.map((r) => (
                   <button key={r.id} className={rol === r.id ? 'activo' : ''} onClick={() => { setRol(r.id); ir(INICIO[r.id]) }}>
-                    <r.icono />{r.nombre}
+                    <r.icono /><span className="rol-txt">{r.nombre}</span>
                   </button>
                 ))}
               </div>

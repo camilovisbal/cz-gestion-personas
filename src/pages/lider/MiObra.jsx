@@ -56,7 +56,7 @@ export default function MiObra() {
         <Kpi etiqueta="Pulso CZ de la obra" valor={pulso.n} unidad={` / ${equipo.length + 1}`} icono={Gauge} pie={pulso.n >= 5 ? `Índice ${num(pulso.indice)} · salud y carga ${num(pulso.dims.salud)}` : 'Se muestra desde 5 respuestas'} onClick={() => ir('escucha')} />
       </div>
 
-      <div className="grid g-3 mt-16" style={{ gridTemplateColumns: 'repeat(6, minmax(0, 1fr))', gap: 10 }}>
+      <div className="acciones-rapidas mt-16">
         {ACCIONES.map((a) => (
           <button key={a.id} className="acceso" onClick={() => (a.id === 'personal' ? ir('lider/solicitudes') : setModal(a.id))}>
             <a.icono />

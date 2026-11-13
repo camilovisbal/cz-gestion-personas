@@ -43,7 +43,7 @@ export default function Obras() {
           const finCerca = o.fin && o.estado === 'activa' && diasHasta(o.fin) < 40
           return (
             <Card key={o.id}>
-              <div className="grid" style={{ gridTemplateColumns: 'minmax(0, 1.1fr) minmax(0, 1.6fr)', gap: 28 }}>
+              <div className="obra-grid">
                 <div>
                   <div className="fila" style={{ gap: 10 }}>
                     <span className="kpi-icono"><Building2 /></span>

@@ -19,8 +19,8 @@ export default function Portal() {
   const titulos = { pulso: 'Pulso CZ', canal: 'Canal CZ', formacion: 'Mi formación', reconoce: 'Mis reconocimientos', bienestar: 'Bienestar' }
 
   return (
-    <div className="grid" style={{ gridTemplateColumns: 'minmax(0, 1fr) 440px minmax(0, 1fr)', gap: 32, alignItems: 'start' }}>
-      <div className="stack" style={{ paddingTop: 40 }}>
+    <div className="portal-grid">
+      <div className="stack portal-info" style={{ paddingTop: 40 }}>
         <div className="etiqueta-modulo" style={{ alignSelf: 'flex-start' }}>Portal del trabajador</div>
         <h1 style={{ fontSize: 24, letterSpacing: '-0.02em' }}>Mi CZ, desde el celular</h1>
         <p className="sec">El trabajador entra escaneando el QR de su obra. No necesita instalar aplicaciones ni recordar contraseñas: se identifica con su documento.</p>
@@ -49,7 +49,7 @@ export default function Portal() {
         </div>
       </div>
 
-      <div className="stack" style={{ paddingTop: 40, alignItems: 'center' }}>
+      <div className="stack portal-qr" style={{ paddingTop: 40, alignItems: 'center' }}>
         <div className="card" style={{ padding: 20, textAlign: 'center', width: '100%', maxWidth: 260 }}>
           <Qr semilla={`portal-${p.obraId}`} size={150} />
           <div className="b mt-12">{obraPorId[p.obraId].nombre}</div>

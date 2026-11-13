@@ -387,12 +387,62 @@ table.tabla { width: 100%; border-collapse: collapse; }
   .g-21, .g-12, .g-32 { grid-template-columns: 1fr; }
   .muro { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+/* Elementos que solo aparecen en celular */
+.btn-menu, .marca-movil { display: none; }
+.sidebar-fondo { position: fixed; inset: 0; background: rgba(20, 38, 29, 0.35); z-index: 65; animation: fade .15s ease; }
+.acciones-rapidas { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; }
+.obra-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.6fr); gap: 28px; }
+.portal-grid { display: grid; grid-template-columns: minmax(0, 1fr) 440px minmax(0, 1fr); gap: 32px; align-items: start; }
+
+@media (max-width: 1180px) {
+  .acciones-rapidas { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .portal-grid { grid-template-columns: minmax(0, 1fr) 440px; }
+  .portal-grid > .portal-qr { display: none; }
+}
+
 @media (max-width: 860px) {
   .app { grid-template-columns: 1fr; }
-  .sidebar { display: none; }
-  .g-2, .g-3, .g-4, .g-5 { grid-template-columns: 1fr; }
-  .contenido { padding: 18px 16px 48px; }
-  .topbar { padding: 0 16px; }
+  /* Menú lateral como panel deslizable */
+  .sidebar {
+    position: fixed; top: 0; bottom: 0; left: 0; width: 280px; z-index: 70;
+    transform: translateX(-100%); transition: transform .22s ease; box-shadow: var(--sombra-lg);
+  }
+  .sidebar.abierto { transform: none; }
+  .btn-menu { display: inline-flex; margin-left: -8px; }
+  .marca-movil { display: inline-flex; }
+  .marca-movil svg { width: 20px; height: 25px; }
+  .topbar { padding: 0 12px; gap: 8px; }
+  .topbar .buscador, .solo-escritorio { display: none; }
+  .rol-switch button { padding: 6px 10px; }
+  .rol-switch button svg { width: 16px; height: 16px; }
+  .rol-txt { display: none; }
+  .usuario { border-left: 0; padding-left: 0; }
   .usuario div { display: none; }
+
+  .contenido { padding: 18px 14px 48px; }
+  .pagina-head h1 { font-size: 20px; }
+  .g-2, .g-3, .g-5, .obra-grid { grid-template-columns: 1fr; }
+  .g-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .kpi { padding: 13px 14px; min-height: 0; }
+  .kpi-valor { font-size: 23px; }
+  .acciones-rapidas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .muro { grid-template-columns: 1fr; }
   .form-grid { grid-template-columns: 1fr; }
+  .card-head { flex-wrap: wrap; }
+  .card-head .fila { flex-wrap: wrap; }
+  .card-body { overflow-x: auto; }
+  .card-pie { flex-wrap: wrap; gap: 6px; }
+  .bala { grid-template-columns: 110px 1fr 36px; gap: 8px; }
+  .filtros .buscar .input { min-width: 0; width: 100%; }
+  .filtros .buscar, .filtros .select { flex: 1 1 100%; }
+  .modal { width: calc(100vw - 16px); max-height: calc(100vh - 16px); }
+  .modal-pie { flex-wrap: wrap; }
+  .detalle-expandido { padding: 4px 14px 16px !important; grid-template-columns: 1fr !important; }
+  .toasts { left: 12px; right: 12px; bottom: 12px; }
+
+  /* Portal del trabajador: sin marco de teléfono, a pantalla completa */
+  .portal-grid { grid-template-columns: 1fr; gap: 0; }
+  .portal-grid > .portal-info { display: none; }
+  .telefono { border: 0; box-shadow: none; padding: 0; background: none; max-width: none; }
+  .telefono-pantalla { padding: 0; min-height: 0; background: none; }
 }
